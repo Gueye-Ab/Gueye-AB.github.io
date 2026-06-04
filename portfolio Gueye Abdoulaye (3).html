@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Étudiant Génie Mécanique — Université Grenoble Alpes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       COULEURS DU SITE
+       👉 Change --accent pour modifier la couleur principale (liens, boutons)
+       👉 Change --bg pour modifier la couleur de fond
+    ============================================================ */
+    :root {
+      --accent:  #49bbca;
+      --bg:      #0a063f;
+      --surface: #171d70;
+      --border:  #0a1536;
+      --text:    #F0EDE8;
+      --muted:   #f0f8f8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--accent); color: #000; }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 5%;
+      background: rgba(14,14,14,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    /* 👉 Initiales dans le logo : remplace "P" et "N" par les tiennes */
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 5% 6rem;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(78,158,189,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      margin-bottom: 2rem;
+    }
+    .hero h1 em {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 400;
+    }
+    .hero-desc {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 100px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.875rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 100px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hero-stats {
+      position: absolute;
+      right: 5%; bottom: 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      text-align: right;
+    }
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* SECTIONS */
+    section { padding: 6rem 5%; border-bottom: 1px solid var(--border); }
+    .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 4rem; }
+    .section-number { font-family: 'Syne', sans-serif; font-size: 0.75rem; color: var(--accent); font-weight: 700; letter-spacing: 0.1em; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.02em; }
+
+    /* À PROPOS */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    .about-text p { color: var(--muted); font-weight: 300; font-size: 1.05rem; margin-bottom: 1.5rem; }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .skills-grid { display: flex; flex-direction: column; gap: 1rem; }
+    .skill-item { display: flex; flex-direction: column; gap: 0.5rem; }
+    .skill-header { display: flex; justify-content: space-between; font-size: 0.875rem; }
+    .skill-name { color: var(--text); font-weight: 500; }
+    .skill-percent { color: var(--accent); font-weight: 600; }
+    .skill-bar { height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .skill-fill { height: 100%; background: var(--accent); border-radius: 2px; transform-origin: left; animation: grow 1.2s ease-out forwards; }
+    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* PROJETS */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-6px); }
+    .project-thumb { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; }
+    .project-body { padding: 1.5rem; }
+    .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(78,158,189,0.1);
+      border: 1px solid rgba(78,158,189,0.2);
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+    }
+    .project-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .project-desc { font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+    .project-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; }
+
+    /* CONTACT */
+    .contact-inner { max-width: 600px; }
+    .contact-desc { color: var(--muted); font-size: 1.05rem; font-weight: 300; margin-bottom: 3rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); transform: translateX(6px); }
+    .contact-icon { width: 40px; height: 40px; background: rgba(78,158,189,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-link-text { flex: 1; }
+    .contact-link-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .contact-link-value { font-weight: 500; font-size: 0.95rem; }
+    .contact-link-arrow { color: var(--muted); font-size: 1.2rem; transition: color 0.2s; }
+    .contact-link:hover .contact-link-arrow { color: var(--accent); }
+
+    /* FOOTER */
+    footer { padding: 2.5rem 5%; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--muted); }
+
+    /* PHOTO DE PROFIL */
+    .hero-photo {
+      position: absolute;
+      top: 30%;
+      right: 1%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+    .photo-ring {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--accent), transparent 60%);
+      position: relative;
+    }
+    .photo-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+    /* Image affichée quand chargée */
+    .photo-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none; /* caché par défaut, affiché par JS */
+    }
+    /* Placeholder visible avant chargement */
+    .photo-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      text-align: center;
+      padding: 1rem;
+      transition: color 0.2s;
+    }
+    .photo-placeholder svg {
+      width: 48px; height: 48px;
+      opacity: 0.4;
+    }
+    .photo-placeholder span {
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .photo-inner:hover .photo-placeholder { color: var(--accent); }
+    .photo-inner:hover .photo-placeholder svg { opacity: 0.8; }
+    /* Overlay "changer la photo" au survol quand image chargée */
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+      font-size: 0.7rem;
+      color: #fff;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .photo-inner:hover .photo-overlay { opacity: 1; }
+    /* Input file caché */
+    #photoInput { display: none; }
+    /* Badge déco sous la photo */
+    .photo-badge {
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #000;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 5%; }
+      .nav-links { gap: 1.25rem; }
+      .hero-stats { display: none; }
+      .hero-photo { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+       👉 Remplace "P" et "N" par tes initiales
+  ============================================================ -->
+  <nav>
+    <a href="#" class="nav-logo"><span>GMP</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO — PAGE D'ACCUEIL
+       👉 Remplace toutes les infos entre les commentaires 👉
+  ============================================================ -->
+  <section class="hero" id="home">
+
+    <div class="hero-tag">
+      <!-- 👉 Ton métier et ta ville — modifie si besoin -->
+      Étudiant L2 Génie Mécanique &amp; Productique · Grenoble
+    </div>
+
+    <h1>
+    <br>
+      <!-- 👉 Remplace "Prénom Nom" par ton vrai prénom et nom -->
+      <em>ABDOULAYE  GUEYE</em>
+    </h1>
+
+    <p class="hero-desc">
+      Étudiant en <strong style="color:var(--text)">Licence de Génie Mécanique et Productique</strong>
+      à l'Université Grenoble Alpes. Je souhaite me spécialiser dans la conception de pièces et systèmes mécaniques,
+      avec une forte appétence pour la <strong style="color:var(--text)">modélisation 3D</strong>,
+      l'analyse des matériaux et les procédés de fabrication.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">Voir mes projets →</a>
+      <a href="#contact" class="btn-secondary">Me contacter</a>
+    </div>
+
+    <!-- 👉 Remplace ces chiffres par les tiens -->
+    <div class="hero-stats">
+      <div>
+        <div class="stat-number">L2</div>
+        <div class="stat-label">Niveau actuel</div>
+      </div>
+      <div>
+        <div class="stat-number">UGA</div>
+        <div class="stat-label">Grenoble Alpes</div>
+      </div>
+      <div>
+        <div class="stat-number">GMP</div>
+        <div class="stat-label">Spécialité</div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         PHOTO DE PROFIL
+         👉 Clique sur le cercle pour choisir ta photo depuis ton ordinateur
+            La photo s'affiche uniquement dans le navigateur (pas sauvegardée).
+            Pour qu'elle soit permanente : place ton image dans le même dossier
+            que ce fichier HTML, et remplace "ta-photo.jpg" dans le code img src.
+    ============================================================ -->
+    <div class="hero-photo">
+      <div class="photo-ring">
+        <div class="photo-inner" onclick="document.getElementById('photoInput').click()" title="Clique pour choisir ta photo">
+          <!-- Image permanente : remplace "ta-photo.jpg" par le nom de ton fichier -->
+          <img id="profileImg" src="ta-photo.jpg" alt="Photo de profil"
+               onerror="this.style.display='none'; document.querySelector('.photo-placeholder').style.display='flex';" />
+          <!-- Placeholder affiché si pas de photo -->
+          <div class="photo-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            <span>Ajouter ma photo</span>
+          </div>
+          <!-- Overlay au survol -->
+          <div class="photo-overlay">Changer la photo</div>
+        </div>
+        <!-- 👉 Change ce texte si tu veux (ex: "L2 GMP", "Ingénieur Mécanique"...) -->
+        <div class="photo-badge">photo</div>
+      </div>
+      <!-- Input file caché -->
+      <input type="file" id="photoInput" accept="image/*" />
+    </div>
+
+  </section>
+
+
+  <script>
+    /* ============================================================
+       SCRIPT : permet de prévisualiser la photo en cliquant sur le cercle
+       (fonctionne dans le navigateur, sans serveur)
+    ============================================================ */
+    document.getElementById('photoInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const img = document.getElementById('profileImg');
+        img.src = ev.target.result;
+        img.style.display = 'block';
+        document.querySelector('.photo-placeholder').style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+
+
+  <!-- ============================================================
+       À PROPOS
+       👉 Remplace le texte et les compétences par les tiens
+  ============================================================ -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">À propos</h2>
+    </div>
+
+    <div class="about-grid">
+
+      <div class="about-text">
+        <!-- 👉 Remplace ces paragraphes par ta vraie biographie -->
+        <p>
+          Je suis étudiant en <strong>Licence 2 de Génie Mécanique et Productique</strong>
+          à l'Université Grenoble Alpes, passionné par la conception mécanique et
+          l'ingénierie des systèmes.
+        </p>
+        <p>
+          Mon cursus m'a permis de développer de solides bases en <strong>résistance des matériaux</strong>,
+          en <strong>dessin industriel</strong> et en <strong>procédés de fabrication</strong>.
+          J'aime transformer une problématique technique en solution concrète.
+        </p>
+        <p>
+          En dehors des cours, je m'intéresse à l'impression 3D, à la modélisation CAO
+          et aux innovations dans le domaine de la fabrication additive.
+        </p>
+        <!-- 👉 Remplace "mon-cv.pdf" par le chemin vers ton fichier CV -->
+        <a href="A.Gueye CV260526.pdf" class="btn-secondary" style="margin-top:1.5rem; display:inline-flex;">
+          ↓ Télécharger mon CV
+        </a>
+      </div>
+
+      <!-- COMPÉTENCES MÉCANIQUES -->
+      <div class="skills-grid">
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Modélisation CAO (SolidWorks)</span>
+            <span class="skill-percent">90%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" style="width: 90%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Procédés de Fabrication</span>
+            <span class="skill-percent">80%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" style="width: 80%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Dessin Industriel &amp; Cotation</span>
+            <span class="skill-percent">50%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" style="width: 50%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Résistance des Matériaux (RDM)</span>
+            <span class="skill-percent">45%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" style="width: 45%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Simulation / Éléments Finis (FEM)</span> <!-- 👉 Adapte si besoin -->
+            <span class="skill-percent">30%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" style="width: 30%"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PROJETS
+       👉 Chaque bloc "project-card" = 1 projet
+          Duplique ou supprime des blocs selon tes besoins
+  ============================================================ -->
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Mes projets</h2>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- PROJET 1 -->
+      <!-- 👉 href : lien vers ton projet (fichier, PDF, GitHub...) -->
+      <a href="#" class="project-card">
+        <!-- 👉 Change l'emoji et la couleur selon ton projet -->
+        <div class="project-thumb" style="background: linear-gradient(135deg, #0d1f2d, #1a3a4a);">
+          <span style="font-size: 4rem;">⚙️</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">SolidWorks</span>
+            <span class="tag">CAO</span>
+          </div>
+          <h3 class="project-title">Projets perso</h3>
+             <!-- 👉 Titre -->
+          <p class="project-desc">
+            <!-- 👉 Description courte du projet (TP, projet tutoré, perso...) -->
+            Conception d'un support de palier sous SolidWorks. Modélisation 3D,
+            plans de fabrication et vérification par calcul RDM.
+          </p>
+          <div class="project-link">Voir le projet →</div>
+        </div>
+      </a>
+      <!-- PROJET 2 -->
+      <!-- 👉 href : lien vers ton projet (fichier, PDF, GitHub...) -->
+      <a href="#" class="project-card">
+        <!-- 👉 Change l'emoji et la couleur selon ton projet -->
+        <div class="project-thumb" style="background: linear-gradient(135deg, #0d1f2d, #1a3a4a);">
+          <span style="font-size: 4rem;">⚙️</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">SolidWorks</span>
+            <span class="tag">CAO</span>
+        
+          </div>
+          <h3 class="project-title">projet scolaire</h3>
+             <!-- 👉 Titre -->
+          <p class="project-desc">
+            <!-- 👉 Description courte du projet (TP, projet tutoré, perso...) -->
+            Ex : Conception d'un support de palier sous SolidWorks. Modélisation 3D,
+            plans de fabrication et vérification par calcul RDM.
+          </p>
+          <div class="project-link">Voir le projet →</div>
+        </div>
+      </a>
+      <!-- PROJET 3 -->
+      <a href="#" class="project-card">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #0d2137, #1a3a5c);">
+          <span style="font-size: 4rem;">🔩</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Fabrication</span>
+            <span class="tag">Usinage</span>
+          </div>
+          <h3 class="project-title">Tournage et fraisage</h3>
+          <p class="project-desc">
+            Ex : Étude d'un procédé d'usinage pour la réalisation d'une pièce mécanique.
+            Gamme d'usinage, choix des outils et paramètres de coupe.
+          </p>
+          <div class="project-link">Voir le projet →</div>
+        </div>
+      </a>
+
+      <!-- PROJET 4 -->
+      <a href="#" class="project-card">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #101a10, #1a3a1a);">
+          <span style="font-size: 4rem;">🖨️</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Impression 3D</span>
+            <span class="tag">Prototypage</span>
+          </div>
+          <h3 class="project-title">Nom du Projet 4</h3>
+          <p class="project-desc">
+            Ex : Conception et impression 3D d'un prototype fonctionnel.
+            De l'idée au modèle physique, validation par essais.
+          </p>
+          <div class="project-link">Voir le projet →</div>
+        </div>
+      </a>
+
+      <!--
+      ====== COPIE CE BLOC POUR AJOUTER UN PROJET ======
+      <a href="" target="_blank" class="project-card">
+        <div class="project-thumb" style="background: #1a1a1a;">
+          <span style="font-size: 4rem;">🔧</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">Tag</span></div>
+          <h3 class="project-title">Projet 4</h3>
+          <p class="project-desc">Description...</p>
+          <div class="project-link">Voir le projet →</div>
+        </div>
+      </a>
+      -->
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CONTACT
+       👉 Remplace chaque lien et valeur par tes vraies coordonnées
+  ============================================================ -->
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Contact</h2>
+    </div>
+
+    <div class="contact-inner">
+      <p class="contact-desc">
+        <!-- 👉 Ton texte d'accroche pour inviter les gens à te contacter -->
+        Tu as un projet à me proposer, une opportunité de stage ou simplement envie d'échanger
+        sur la conception mécanique ? N'hésite pas, je réponds rapidement.
+      </p>
+
+      <div class="contact-links">
+
+        <!-- 👉 Remplace par ta vraie adresse email (aux 2 endroits) -->
+        <a href="mailto: gueye.abdoulaye137@gmail.com" class="contact-link">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-link-text">
+            <div class="contact-link-label">Email</div>
+            <div class="contact-link-value">gueye.abdoulaye137@gmail.com.com</div>
+          </div>
+          <div class="contact-link-arrow">→</div>
+        </a>
+
+        <!-- 👉 Remplace par ton URL LinkedIn -->
+        <a href="https://www.linkedin.com/in/abdoulaye-gueye-979b6b277" target="_blank" class="contact-link">
+          <div class="contact-icon">💼</div>
+          <div class="contact-link-text">
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-value">https://www.linkedin.com/in/abdoulaye-gueye-979b6b277</div>
+          </div>
+          <div class="contact-link-arrow">→</div>
+        </a>
+
+        <!-- 👉 Remplace par ton numéro (ou supprime ce bloc) -->
+        <a href="tel:+33753399382" class="contact-link">
+          <div class="contact-icon">📞</div>
+          <div class="contact-link-text">
+            <div class="contact-link-label">Téléphone</div>
+            <div class="contact-link-value">+33753399382</div>
+          </div>
+          <div class="contact-link-arrow">→</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PIED DE PAGE
+       👉 Remplace "Prénom Nom" par ton nom
+  ============================================================ -->
+  <footer>
+    <span>© 2026 Étudiant GMP — Université Grenoble Alpes</span>
+    <span>Fait avec en HTML pur</span>
+  </footer>
+
+</body>
+</html>
